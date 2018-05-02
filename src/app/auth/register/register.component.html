@@ -1,3 +1,70 @@
-<p>
-  register works!
-</p>
+<div class="form">
+  <h1>Sign Up</h1>
+
+  <form
+    novalidate
+    [formGroup]="userForm"
+    (ngSubmit)="signUp()"
+    class="form">
+
+    <p *ngIf="signUpMessage.success">{{ signUpMessage.success }}</p>
+    <p *ngIf="signUpMessage.error">{{ signUpMessage.error }}</p>
+
+    <input
+      type="email"
+      formControlName="email"
+      placeholder="Email"
+      required>
+    <p *ngIf="formErrors.email">{{ formErrors.email }}</p>
+
+    <input
+      type="text"
+      formControlName="username"
+      placeholder="Username"
+      required>
+    <p *ngIf="formErrors.username">{{ formErrors.username }}</p>
+
+    <p *ngIf="username.errors && username.errors['unavailable']">
+      <strong>{{ username.value }}</strong> is already taken
+    </p>
+
+    <p *ngIf="username.valid">
+      <strong>{{ username.value }}</strong> is available!
+    </p>
+
+    <p *ngIf="username.pending">
+      Checking availability... of <strong>{{ username.value }}</strong>
+    </p>
+
+    <input
+      type="password"
+      formControlName="password"
+      placeholder="Password"
+      required>
+    <p *ngIf="formErrors.password">{{ formErrors.password }}</p>
+
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit"
+      name="button"
+      [disabled]="!userForm.valid">
+      Sign up
+    </button>
+
+  </form>
+
+  <button (click)="_authService.googleLogIn()">Continue with Google</button>
+
+  <div>
+    <p>Already a member?</p>
+    <a
+      type="button"
+      name="button"
+      [routerLink]="['../', 'login']">
+      Log in
+    </a>
+  </div>
+
+</div>
+
