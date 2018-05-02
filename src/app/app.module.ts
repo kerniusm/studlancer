@@ -15,6 +15,9 @@ import { AuthService } from './core/auth.service';
 // my guards
 import { AuthGuard } from './core/auth.guard';
 // angular material
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 
 // my components
 import { AppComponent } from './app.component';
@@ -41,7 +44,7 @@ import { MessagesComponent } from './messages/messages.component';
     ProjectFormComponent,
     ProfileComponent,
     ProjectDetailsComponent,
-    MessagesComponent
+    MessagesComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,9 @@ import { MessagesComponent } from './messages/messages.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatMenuModule
   ],
   providers: [
     AuthService,
