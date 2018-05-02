@@ -15,7 +15,12 @@ import { AuthService } from './core/auth.service';
 // my guards
 import { AuthGuard } from './core/auth.guard';
 // angular material
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
 // my components
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
@@ -49,6 +54,12 @@ import { MessagesComponent } from './messages/messages.component';
     AngularFireModule.initializeApp(environment.firebase, 'angularfs'),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatRadioModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
