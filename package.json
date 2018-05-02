@@ -48,7 +48,6 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "protractor": "~5.1.2",
-<<<<<<< HEAD
     "ts-node": "~3.2.0",
     "tslint": "~5.7.0",
     "typescript": "~2.4.2"
@@ -64,10 +63,4 @@
     "url": "https://github.com/kerniusm/studlancer/issues"
   },
   "homepage": "https://github.com/kerniusm/studlancer#readme"
-=======
-    "ts-node": "~4.1.0",
-    "tslint": "~5.9.1",
-    "typescript": "~2.5.3"
-  }
->>>>>>> 9552584968a3fb8b56d7e8d5bb856d476db6fd27
 }
