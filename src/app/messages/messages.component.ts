@@ -9,10 +9,11 @@ import { MessagesService } from '../_services/messages.service';
 export class MessagesComponent implements OnInit {
 
 	messages: any[];
-	user: string = "user1";
-	
+	sentMessages: any[];
+
   constructor(private message: MessagesService) {
-  	this.messages = this.message.getMessages();
+  	this.message.getMessages().subscribe(el => this.messages = el);
+  	this.message.getSentMessages().subscribe(el => this.sentMessages = el);
   }
 
   ngOnInit() {

@@ -17,9 +17,9 @@
 		<mat-tab label="Sent messages">
 			<div *ngIf="selectedTabIndex == 1">
 			<mat-accordion>
-				<mat-expansion-panel *ngFor="let message of messages">
+				<mat-expansion-panel *ngFor="let message of sentMessages">
 					<mat-expansion-panel-header>
-						<mat-panel-title>{{message.from}}</mat-panel-title>
+						<mat-panel-title>{{message.to}}</mat-panel-title>
 						<mat-panel-description>{{message.subject}}</mat-panel-description>
 					</mat-expansion-panel-header>
 					<p>{{message.text}}</p>
