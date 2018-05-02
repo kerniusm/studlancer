@@ -12,12 +12,16 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 // my services
 import { AuthService } from './core/auth.service';
+import { MessagesService } from './_services/messages.service'
 // my guards
 import { AuthGuard } from './core/auth.guard';
 // angular material
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatInputModule } from '@angular/material/input';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTabsModule } from '@angular/material/tabs';
 
 // my components
 import { AppComponent } from './app.component';
@@ -57,11 +61,15 @@ import { MessagesComponent } from './messages/messages.component';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
-    MatMenuModule
+    MatMenuModule,
+    MatInputModule,
+    MatExpansionModule,
+    MatTabsModule
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    MessagesService
   ],
   bootstrap: [AppComponent]
 })
