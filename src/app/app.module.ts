@@ -12,10 +12,13 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 // my services
 import { AuthService } from './core/auth.service';
+import { UserService } from './_services/user.service';
 // my guards
 import { AuthGuard } from './core/auth.guard';
 // angular material
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 // my components
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
@@ -28,6 +31,8 @@ import { ProjectFormComponent } from './projects/project-form/project-form.compo
 import { ProfileComponent } from './profile/profile.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { MessagesComponent } from './messages/messages.component';
+import { UsernameComponent } from './auth/username/username.component';
+import { GoogleLoginComponent } from './auth/google-login/google-login.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +46,9 @@ import { MessagesComponent } from './messages/messages.component';
     ProjectFormComponent,
     ProfileComponent,
     ProjectDetailsComponent,
-    MessagesComponent
+    MessagesComponent,
+    UsernameComponent,
+    GoogleLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -52,10 +59,14 @@ import { MessagesComponent } from './messages/messages.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    UserService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,5 +1,5 @@
-<div class="form">
-  <h1>Sign Up</h1>
+<div class="form" *ngIf="!createUsername">
+  <h1>Sign up</h1>
 
   <form
     novalidate
@@ -10,42 +10,29 @@
     <p *ngIf="signUpMessage.success">{{ signUpMessage.success }}</p>
     <p *ngIf="signUpMessage.error">{{ signUpMessage.error }}</p>
 
-    <input
-      type="email"
-      formControlName="email"
-      placeholder="Email"
-      required>
+    <mat-form-field class="full-width">
+      <input
+        matInput
+        type="email"
+        formControlName="email"ng serve
+        placeholder="Email"
+        required>
+    </mat-form-field>
     <p *ngIf="formErrors.email">{{ formErrors.email }}</p>
 
-    <input
-      type="text"
-      formControlName="username"
-      placeholder="Username"
-      required>
-    <p *ngIf="formErrors.username">{{ formErrors.username }}</p>
-
-    <p *ngIf="username.errors && username.errors['unavailable']">
-      <strong>{{ username.value }}</strong> is already taken
-    </p>
-
-    <p *ngIf="username.valid">
-      <strong>{{ username.value }}</strong> is available!
-    </p>
-
-    <p *ngIf="username.pending">
-      Checking availability... of <strong>{{ username.value }}</strong>
-    </p>
-
-    <input
-      type="password"
-      formControlName="password"
-      placeholder="Password"
-      required>
+    <mat-form-field class="full-width">
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+        required>
+    </mat-form-field>
     <p *ngIf="formErrors.password">{{ formErrors.password }}</p>
 
     <button
       mat-raised-button
-      color="accent"
+      color="primary"
       type="submit"
       name="button"
       [disabled]="!userForm.valid">
@@ -54,7 +41,12 @@
 
   </form>
 
-  <button (click)="_authService.googleLogIn()">Continue with Google</button>
+  <p>Or</p>
+
+  <app-google-login
+    (createUsername)='usernameProvider($event)'
+    (logInMessage)='messageProvider($event)'>
+  </app-google-login>
 
   <div>
     <p>Already a member?</p>
@@ -67,4 +59,6 @@
   </div>
 
 </div>
+
+<app-username *ngIf="createUsername"></app-username>
 
