@@ -8,11 +8,14 @@ mat-card{
   }
   button{
     margin-bottom: 20px;
+    cursor: pointer;
+    position: relative;
   }
   mat-radio-button{
     margin-right: 10px;
   }
   .hidden{
-    display: none;
+    width: 10px;
+    opacity: 0;
   }
 }

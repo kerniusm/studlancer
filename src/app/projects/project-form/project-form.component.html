@@ -9,7 +9,10 @@
     <mat-form-field>
       <textarea matInput type="text" placeholder="Projekto aprašymas" matTextareaAutosize required></textarea>
     </mat-form-field>
-    <button mat-button>Įkelkite failus</button>
+    <div class="uploadFile" (click)="fileUpload.click()">
+      <button type="button" mat-button>Įkelkite failus</button>
+      <input type="file" mat-button (change)="detectFile($event.target.files)" #fileUpload class="hidden">      
+    </div>
     <mat-form-field>
       <mat-select [(value)]="selected" placeholder="Projekto trukmė" required>
         <mat-option value="1">Skubus (1-2d.)</mat-option>
@@ -22,18 +25,18 @@
     </mat-form-field>
     <mat-form-field>
       <mat-select [(value)]="payment" placeholder="Kaip bus mokoma už projektą?" required>
-        <mat-option value="Valandinis atlygis">Valandinis atlygis</mat-option>
-        <mat-option value="Fiksuota kaina">Fiksuota kaina</mat-option>
+        <mat-option (click)="hidden_hours = !hidden_hours" value="Valandinis atlygis">Valandinis atlygis</mat-option>
+        <mat-option (click)="hidden_fixed = !hidden_fixed" value="Fiksuota kaina">Fiksuota kaina</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field class="hourly hidden">
+    <mat-form-field *ngIf="!hidden_hours" class="hourly">
       <mat-select [(value)]="budget">
-        <mat-option>Valandinis</mat-option>
+        <mat-option value="5-10 Eu">5-10 Eu</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field class="fixed hidden">
+    <mat-form-field *ngIf="!hidden_fixed" class="fixed">
       <mat-select [(value)]="budget">
-        <mat-option>Fiksuotas</mat-option>
+        <mat-option value="100 Eu">100 Eu</mat-option>
       </mat-select>
     </mat-form-field>
   </mat-card-content>
