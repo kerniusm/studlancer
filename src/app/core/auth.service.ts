@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument } from 'angularfire2/firestore';
@@ -17,7 +17,8 @@ export class AuthService {
   constructor(
     public afAuth: AngularFireAuth,
     public afStore: AngularFirestore,
-    public router: Router
+    public router: Router,
+    private aRoute: ActivatedRoute
   ) {
     this.user = this.afAuth.authState
     .switchMap(
@@ -31,23 +32,14 @@ export class AuthService {
     );
   }
 
-  emailSignUp(
-    email: string,
-    username: string,
-    password: string
-  ) {
+  emailSignUp(email: string, password: string) {
     return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
-    .then(
-      (user) => {
-        return this.updateUserData(user, username);
-      }
-    );
+    .then((user) => {
+      return this.updateUserData(user);
+    });
   }
 
-  emailLogIn(
-    email: string,
-    password: string
-  ) {
+  emailLogIn(email: string, password: string) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password);
   }
 
@@ -56,32 +48,24 @@ export class AuthService {
     return this.oAuthLogIn(provider);
   }
 
-  private oAuthLogIn(provider) {
-    return this.afAuth.auth.signInWithPopup(provider)
-    .then(
-      (credential) => {
-        this.afStore.doc(`users/${credential.user.uid}`)
-        .valueChanges()
-        .pipe(take(1))
-        .subscribe(user => {
-          if (user && user['username']) {
-            this.updateUserData(credential.user, user['username']);
-            return this.router.navigate(['/landing']);
-          } else {
-            this.updateUserData(credential.user, '');
-            return this.router.navigate(['/login']);
-          }
-        });
-      }
-    );
+  updateUsername(username: string, userId) {
+    const userRef: AngularFirestoreDocument<any> = this.afStore.doc(`users/${userId}`);
+    const userData: any = {
+      username: username
+    };
+    return userRef.set(userData, { merge: true });
   }
 
-  private updateUserData(user: any, username: string) {
+  private oAuthLogIn(provider) {
+    return this.afAuth.auth.signInWithPopup(provider);
+  }
+
+  public updateUserData(user: any, username?: string) {
     const userRef: AngularFirestoreDocument<any> = this.afStore.doc(`users/${user.uid}`);
     const userData: any = {
       uid: user.uid,
       email: user.email,
-      username: username,
+      username: username || '',
       photoURL: user.photoURL || 'https://goo.gl/8kwFW5'
     };
     return userRef.set(userData, { merge: true });

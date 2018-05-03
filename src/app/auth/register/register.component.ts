@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../core/auth.service';
 
-import { Unavailable } from '../../_validators/unavailable.validator';
-
-type UserFields = 'email' | 'username' | 'password';
+type UserFields = 'email' | 'password';
 type FormErrors = {[user in UserFields]: string};
 
 @Component({
@@ -15,10 +12,10 @@ type FormErrors = {[user in UserFields]: string};
 })
 export class RegisterComponent implements OnInit {
 
+  createUsername: Boolean = false;
   userForm: FormGroup;
   formErrors: FormErrors = {
     'email': '',
-    'username': '',
     'password': ''
   };
   signUpMessage = {
@@ -30,11 +27,6 @@ export class RegisterComponent implements OnInit {
       'required': 'Oops! Please enter an email address',
       'email': `That doesn't look like a valid email address`
     },
-    'username': {
-      'required': 'Please enter a username',
-      'minlength': 'Sorry..it must be 3 characters minimum',
-      'maxlength': `Username can't be longer than 16 characters`
-    },
     'password': {
       'required': 'Please enter a password',
       'pattern': 'It must contain at least one letter and one number',
@@ -45,7 +37,6 @@ export class RegisterComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     public _authService: AuthService,
-    private router: Router
   ) { }
 
   ngOnInit() {
@@ -59,13 +50,6 @@ export class RegisterComponent implements OnInit {
           Validators.required,
           Validators.email
         ]],
-        'username': ['', [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(16)
-        ],
-          Unavailable(this._authService.afStore)
-        ],
         'password': ['', [
           Validators.required,
           Validators.pattern('^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$'),
@@ -110,20 +94,23 @@ export class RegisterComponent implements OnInit {
   signUp() {
     this._authService.emailSignUp(
       this.userForm.value['email'],
-      this.userForm.value['username'].toLowerCase(),
       this.userForm.value['password']
-    ).then(
-      () => {
-        this.signUpMessage.success = 'You have successfully registered and logged in!';
-        setTimeout(() => this.router.navigate(['/landing']), 2000);
-      }).catch(
-      () => {
-        this.signUpMessage.error = `Sorry.. ${this.userForm.value['email']} is already in use by another account`;
+    )
+    .then(() => {
+      this.signUpMessage.success = 'You have been successfully registered!';
+      setTimeout(() => this.createUsername = true, 1500);
+    })
+    .catch(() => {
+      this.signUpMessage.error = `Sorry.. ${this.userForm.value['email']} is already in use by another account`;
     });
   }
 
-  get username() {
-    return this.userForm.get('username');
+  usernameProvider(state) {
+    this.createUsername = state;
+  }
+
+  messageProvider(message) {
+    this.signUpMessage.success = message;
   }
 
 }

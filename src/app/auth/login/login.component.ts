@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/auth.service';
 
+import { take } from 'rxjs/operators';
+
 type UserFields = 'email' | 'password';
 type FormErrors = {[user in UserFields]: string};
 
@@ -13,7 +15,7 @@ type FormErrors = {[user in UserFields]: string};
 })
 export class LoginComponent implements OnInit {
 
-  test: any;
+  createUsername: Boolean = false;
   userForm: FormGroup;
   formErrors: FormErrors = {
     'email': '',
@@ -93,14 +95,30 @@ export class LoginComponent implements OnInit {
     this._authService.emailLogIn(
       this.userForm.value['email'],
       this.userForm.value['password']
-    ).then(
-      () => {
-        this.logInMessage.success = 'Logged in successfully!';
-        setTimeout(() => this.router.navigate(['/landing']), 2000);
-      }).catch(
-      () => {
-        this.logInMessage.error = 'Sorry..incorrect email address or password';
+    )
+    .then(() => {
+      this.logInMessage.success = 'Logged in successfully!';
+      this._authService.user
+      .pipe(take(1))
+      .subscribe(user => {
+        if (user['username']) {
+          return this.router.navigate(['/landing']);
+        } else {
+          this.createUsername = true;
+        }
+      });
+    })
+    .catch(() => {
+      this.logInMessage.error = 'Sorry..incorrect email address or password';
     });
+  }
+
+  usernameProvider(state) {
+    this.createUsername = state;
+  }
+
+  messageProvider(message) {
+    this.logInMessage.success = message;
   }
 
 }

@@ -14,12 +14,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 // my services
 import { AuthService } from './core/auth.service';
+import { UserService } from './_services/user.service';
 // my guards
 import { AuthGuard } from './core/auth.guard';
 // angular material
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 // my components
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
@@ -33,6 +36,8 @@ import { ProjectDetailsComponent } from './projects/project-details/project-deta
 import { MessagesComponent } from './messages/messages.component';
 import { StudentComponent } from './profile/student/student.component';
 import { CompanyComponent } from './profile/company/company.component';
+import { UsernameComponent } from './auth/username/username.component';
+import { GoogleLoginComponent } from './auth/google-login/google-login.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +52,9 @@ import { CompanyComponent } from './profile/company/company.component';
     ProjectDetailsComponent,
     MessagesComponent,
     StudentComponent,
-    CompanyComponent
+    CompanyComponent,
+    UsernameComponent,
+    GoogleLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -60,11 +67,15 @@ import { CompanyComponent } from './profile/company/company.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    UserService
   ],
   bootstrap: [AppComponent]
 })
