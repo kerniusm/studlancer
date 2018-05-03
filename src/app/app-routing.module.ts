@@ -14,16 +14,13 @@ const routes: Routes = [
   { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: RegisterComponent },
-<<<<<<< HEAD
   { path: 'login', component: LoginComponent },
   { path: 'projects', component: ProjectsComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'messages', component: MessagesComponent }
-]; 
-=======
+  { path: 'messages', component: MessagesComponent },
   { path: 'landing', component: LandingComponent, canActivate: [AuthGuard] },
 ];
->>>>>>> 0bf0e1017c5e76f17778d22ebbf0187265ea3ef4
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
