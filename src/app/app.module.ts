@@ -12,9 +12,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 // my services
 import { AuthService } from './core/auth.service';
+
 import { MessagesService } from './_services/messages.service'
-// my guards
-import { AuthGuard } from './core/auth.guard';
 // angular material
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
@@ -24,6 +23,13 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
+
+
+import { UserService } from './_services/user.service';
+// my guards
+import { AuthGuard } from './core/auth.guard';
+// angular material
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 // my components
 import { AppComponent } from './app.component';
@@ -37,6 +43,8 @@ import { ProjectFormComponent } from './projects/project-form/project-form.compo
 import { ProfileComponent } from './profile/profile.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { MessagesComponent } from './messages/messages.component';
+import { UsernameComponent } from './auth/username/username.component';
+import { GoogleLoginComponent } from './auth/google-login/google-login.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +59,11 @@ import { MessagesComponent } from './messages/messages.component';
     ProfileComponent,
     ProjectDetailsComponent,
     MessagesComponent,
+<<<<<<< HEAD
+=======
+    UsernameComponent,
+    GoogleLoginComponent
+>>>>>>> 0bf0e1017c5e76f17778d22ebbf0187265ea3ef4
   ],
   imports: [
     BrowserModule,
@@ -61,6 +74,7 @@ import { MessagesComponent } from './messages/messages.component';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+<<<<<<< HEAD
     MatToolbarModule,
     MatButtonModule,
     MatMenuModule,
@@ -69,11 +83,20 @@ import { MessagesComponent } from './messages/messages.component';
     MatTabsModule,
     MatSidenavModule,
     MatCardModule
+=======
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule
+>>>>>>> 0bf0e1017c5e76f17778d22ebbf0187265ea3ef4
   ],
   providers: [
     AuthService,
     AuthGuard,
+<<<<<<< HEAD
     MessagesService
+=======
+    UserService
+>>>>>>> 0bf0e1017c5e76f17778d22ebbf0187265ea3ef4
   ],
   bootstrap: [AppComponent]
 })

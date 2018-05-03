@@ -1,4 +1,4 @@
-<div class="form">
+<div class="form" *ngIf="!createUsername">
   <h1>Log in</h1>
 
   <form
@@ -10,21 +10,29 @@
     <p *ngIf="logInMessage.success">{{ logInMessage.success }}</p>
     <p *ngIf="logInMessage.error">{{ logInMessage.error }}</p>
 
-    <input
-      type="email"
-      formControlName="email"
-      placeholder="Email"
-      required>
+    <mat-form-field class="full-width">
+      <input
+        matInput
+        type="email"
+        formControlName="email"
+        placeholder="Email"
+        required>
+    </mat-form-field>
     <p *ngIf="formErrors.email">{{ formErrors.email }}</p>
 
-    <input
-      type="password"
-      formControlName="password"
-      placeholder="Password"
-      required>
+    <mat-form-field class="full-width">
+      <input
+        matInput
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+        required>
+    </mat-form-field>
     <p *ngIf="formErrors.password">{{ formErrors.password }}</p>
 
     <button
+      mat-raised-button
+      color="accent"
       type="submit"
       name="button"
       [disabled]="!userForm.valid">
@@ -33,7 +41,12 @@
 
   </form>
 
-  <button (click)="_authService.googleLogIn()">Continue with Google</button>
+  <p>Or</p>
+
+  <app-google-login
+    (createUsername)='usernameProvider($event)'
+    (logInMessage)='messageProvider($event)'>
+  </app-google-login>
 
   <div>
     <p>Not a member yet?</p>
@@ -46,3 +59,5 @@
   </div>
 
 </div>
+
+<app-username *ngIf="createUsername"></app-username>

@@ -11,4 +11,8 @@ export class AppComponent {
   constructor(private afStore: AngularFirestore) {
     afStore.firestore.settings({ timestampsInSnapshots: true });
   }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 0bf0e1017c5e76f17778d22ebbf0187265ea3ef4
