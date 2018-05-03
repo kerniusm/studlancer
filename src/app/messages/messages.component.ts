@@ -7,15 +7,15 @@ import { MessagesService } from '../_services/messages.service';
   styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent implements OnInit {
+  messages: any[];
+  sentMessages: any[];
 
-  constructor(private message: MessagesService) {
-
+  constructor(private _messageService: MessagesService) {
   }
 
   ngOnInit() {
+
   }
 
-  getId() {
-  }
 
 }

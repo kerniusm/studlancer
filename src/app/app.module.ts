@@ -22,6 +22,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatCardModule } from '@angular/material/card';
 
 // my components
 import { AppComponent } from './app.component';
@@ -64,7 +66,9 @@ import { MessagesComponent } from './messages/messages.component';
     MatMenuModule,
     MatInputModule,
     MatExpansionModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSidenavModule,
+    MatCardModule
   ],
   providers: [
     AuthService,
