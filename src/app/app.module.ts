@@ -10,11 +10,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 // my services
 import { AuthService } from './core/auth.service';
 // my guards
 import { AuthGuard } from './core/auth.guard';
 // angular material
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
 
 // my components
 import { AppComponent } from './app.component';
@@ -25,9 +29,10 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectFormComponent } from './projects/project-form/project-form.component';
-import { ProfileComponent } from './profile/profile.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { MessagesComponent } from './messages/messages.component';
+import { StudentComponent } from './profile/student/student.component';
+import { CompanyComponent } from './profile/company/company.component';
 
 @NgModule({
   declarations: [
@@ -39,9 +44,10 @@ import { MessagesComponent } from './messages/messages.component';
     RegisterComponent,
     ProjectsComponent,
     ProjectFormComponent,
-    ProfileComponent,
     ProjectDetailsComponent,
-    MessagesComponent
+    MessagesComponent,
+    StudentComponent,
+    CompanyComponent
   ],
   imports: [
     BrowserModule,
@@ -49,9 +55,12 @@ import { MessagesComponent } from './messages/messages.component';
     AngularFireModule.initializeApp(environment.firebase, 'angularfs'),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    MatTabsModule,
+    MatCardModule
   ],
   providers: [
     AuthService,
