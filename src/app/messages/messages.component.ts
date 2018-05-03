@@ -17,5 +17,9 @@ export class MessagesComponent implements OnInit {
 
   }
 
+  getUser() {
+  	console.log(this._messageService.getUser());
+  	this._messageService.getUser();
+  }
 
 }
