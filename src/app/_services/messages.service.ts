@@ -8,31 +8,20 @@ export class MessagesService {
 	private collection: AngularFirestoreCollection<any>;
 	private messages: Observable<any[]>;
 	private sentMessages: Observable<any[]>;
-	user: string = "user1";
 
   constructor(private afs: AngularFirestore) {
-  	this.messages = afs.collection('messages', ref => ref.where('to', '==', this.user)).snapshotChanges().map(actions => {
-  		return actions.map(a => {
-  			const data = a.payload.doc.data();
-  			const id = a.payload.doc.id;
-  			return {id, ...data}
-  		})
-  	});
-  	this.sentMessages = afs.collection('messages', ref => ref.where('from','==', this.user)).snapshotChanges().map(actions => {
-  		return actions.map(a => {
-  			const data = a.payload.doc.data();
-  			const id = a.payload.doc.id;
-  			return {id, ...data}
-  		})
-  	});
+    this.collection = this.afs.collection('users', ref => ref.where('email','==','lukas@lukas.lukas'));
+    this.messages = this.collection.snapshotChanges().map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data;
+        const id = a.payload.doc.id;
+        return {id, ...data}
+      })
+    });
   }
 
-  getMessages() {
-  	return this.messages;
-  }
-
-  getSentMessages() {
-  	return this.sentMessages;
+  getId() {
+    return this.messages;
   }
 
 }
