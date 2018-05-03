@@ -1,24 +1,22 @@
 <div class="container">
+	<mat-drawer-container class="container__drawer">
+		<mat-drawer mode="side" opened="true">
+			<mat-list role="list">
+			  <mat-list-item role="listitem" (click)="showInbox()"><button mat-button>Inbox</button></mat-list-item>
+			  
+			  <mat-list-item role="listitem" (click)="showSent()"><button mat-button>Sent Messages</button></mat-list-item>			  
+			  
+			  <mat-list-item role="listitem" (click)="showNew()"><button mat-raised-button color="primary">New Message</button></mat-list-item>			  
+			  
+			  <mat-list-item role="listitem" (click)="getInbox()"><button mat-raised-button color="primary">User</button></mat-list-item>			  
 
-<!-- 	<mat-card>
-		<mat-tab-group>
-			<mat-tab label="Inbox">
-				<mat-accordion>
-					<mat-expansion-panel *ngFor="let message of messages">
-						<mat-expansion-panel-header>
-							<mat-panel-title><{{message.from}}</mat-panel-title>
-							<mat-panel-description>{{message.subject}}</mat-panel-description>
-						</mat-expansion-panel-header>
-					</mat-expansion-panel>
-				</mat-accordion>
-			</mat-tab>
-
-			<mat-tab label="Sent messages">
-				
-			</mat-tab>
-		</mat-tab-group>
-	</mat-card> -->
-	<button (click)="getMessages()">Get</button>
-
+			  <mat-list-item role="listitem" (click)="getSentMessages()"><button mat-raised-button color="primary">User</button></mat-list-item>
+			</mat-list>
+		</mat-drawer>
+		<mat-drawer-content class="container__content">
+			<app-inbox *ngIf="inbox"></app-inbox>
+			<app-sent *ngIf="sent"></app-sent>
+			<app-new *ngIf="newMessage"></app-new>
+		</mat-drawer-content>
+	</mat-drawer-container>
 </div>
-

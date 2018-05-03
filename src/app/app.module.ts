@@ -15,6 +15,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 // my services
 import { AuthService } from './core/auth.service';
 import { UserService } from './_services/user.service';
+import { MessagesService } from './_services/messages.service';
 // my guards
 import { AuthGuard } from './core/auth.guard';
 // angular material
@@ -23,6 +24,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
 // my components
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
@@ -38,6 +44,9 @@ import { StudentComponent } from './profile/student/student.component';
 import { CompanyComponent } from './profile/company/company.component';
 import { UsernameComponent } from './auth/username/username.component';
 import { GoogleLoginComponent } from './auth/google-login/google-login.component';
+import { InboxComponent } from './messages/inbox/inbox.component';
+import { SentComponent } from './messages/sent/sent.component';
+import { NewComponent } from './messages/new/new.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +63,10 @@ import { GoogleLoginComponent } from './auth/google-login/google-login.component
     StudentComponent,
     CompanyComponent,
     UsernameComponent,
-    GoogleLoginComponent
+    GoogleLoginComponent,
+    InboxComponent,
+    SentComponent,
+    NewComponent
   ],
   imports: [
     BrowserModule,
@@ -70,12 +82,18 @@ import { GoogleLoginComponent } from './auth/google-login/google-login.component
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatListModule,
+    MatExpansionModule
   ],
   providers: [
     AuthService,
     AuthGuard,
-    UserService
+    UserService,
+    MessagesService
   ],
   bootstrap: [AppComponent]
 })

@@ -5,7 +5,11 @@
 .container {
 	width: 80%;
 	margin: auto;
-	.sent {
-		width: 80%;
+	.container__drawer {
+		min-height: 400px;
+		button {
+			width: 100%;
+			text-align: right;
+		}
 	}
 }

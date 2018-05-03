@@ -7,19 +7,45 @@ import { MessagesService } from '../_services/messages.service';
   styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent implements OnInit {
-  messages: any[];
+  inbox: boolean = true;
+  sent: boolean = false;
+  newMessage: boolean = false;
+
+  inboxMessages: any[];
   sentMessages: any[];
 
   constructor(private _messageService: MessagesService) {
   }
 
   ngOnInit() {
-
+    this.getSentMessages();
   }
 
-  getUser() {
-  	console.log(this._messageService.getUser());
-  	this._messageService.getUser();
+
+  getSentMessages() {
+    this._messageService.getSentMessages().subscribe(el => console.log(el))
+  }
+
+  getInbox() {
+    this._messageService.getInbox().subscribe(el => console.log(el))
+  }
+
+  showInbox() {
+    this.inbox = true;
+    this.sent = false; 
+    this.newMessage = false;
+  }
+
+  showSent() {
+    this.sent = true;
+    this.inbox = false;
+    this.newMessage = false;
+  }
+
+  showNew() {
+    this.newMessage = true;
+    this.inbox = false;
+    this.sent = false;
   }
 
 }

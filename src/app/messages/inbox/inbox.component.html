@@ -1,0 +1,13 @@
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let message of messages">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{message.from}}
+      </mat-panel-title>
+      <mat-panel-description>
+      	{{message.subject}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    {{message.text}}
+  </mat-expansion-panel>
+</mat-accordion>
