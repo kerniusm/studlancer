@@ -6,18 +6,18 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { MessagesComponent } from './messages/messages.component';
+import { ProfileComponent } from './profile/profile.component';
 
 import { AuthGuard } from './core/auth.guard';
 
 const routes: Routes = [
   { path: '', component: LandingComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: LoginComponent },
-  { path: 'projects', component: ProjectsComponent },
-  { path: 'messages', component: MessagesComponent },
-  { path: 'signup', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: RegisterComponent },
+  { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'landing', component: LandingComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'projects', component: ProjectsComponent },
+  { path: 'signup', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
 ];
 
 

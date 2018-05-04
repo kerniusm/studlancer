@@ -1,5 +1,8 @@
 <mat-toolbar color="primary" class="container">
-	<span class="logo" routerLink="">LOGO</span>
+	<button class="logo" mat-icon-button routerLink="">
+    <mat-icon>&#xE88A;</mat-icon>
+
+	</button>
 		
 	<button
 	routerLink="projects"
@@ -9,16 +12,19 @@
 	<span class="spacer"></span>
 	
 	<button
+	*ngIf="!user"
 	mat-button
 	routerLink="login"
 	>Login</button>
 	
 	<button
+	*ngIf="!user"
 	mat-button
 	routerLink="signup"
 	>Sign up</button>
 
 	<button
+	*ngIf="user"
 	mat-button
 	[matMenuTriggerFor]="profileMenu"
 	>Profile</button>
