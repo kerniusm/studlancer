@@ -15,7 +15,6 @@ const routes: Routes = [
   { path: 'projects', component: ProjectsComponent },
   { path: 'messages', component: MessagesComponent },
   { path: 'signup', component: RegisterComponent },
-  { path: '', component: LandingComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: RegisterComponent },
   { path: 'landing', component: LandingComponent, canActivate: [AuthGuard] },
