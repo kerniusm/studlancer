@@ -1,14 +1,14 @@
 <div class="form" *ngIf="!createUsername">
   <h1>Sign up</h1>
 
-  <p *ngIf="submitMessage.success">{{ submitMessage.success }}</p>
-  <p *ngIf="submitMessage.error">{{ submitMessage.error }}</p>
-
   <form
     novalidate
     [formGroup]="userForm"
     (ngSubmit)="signUp()"
     class="form">
+
+    <p *ngIf="signUpMessage.success">{{ signUpMessage.success }}</p>
+    <p *ngIf="signUpMessage.error">{{ signUpMessage.error }}</p>
 
     <mat-form-field class="full-width">
       <input
@@ -38,6 +38,7 @@
       [disabled]="!userForm.valid">
       Sign up
     </button>
+
   </form>
 
   <p>Or</p>
@@ -56,13 +57,8 @@
       Log in
     </a>
   </div>
+
 </div>
 
 <app-username *ngIf="createUsername"></app-username>
-
-<mat-progress-spinner
-  *ngIf="showLoading"
-  color="primary"
-  mode="indeterminate">
-</mat-progress-spinner>
 

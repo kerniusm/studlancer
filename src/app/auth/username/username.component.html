@@ -1,18 +1,6 @@
 <div class="form">
   <h1>Create username</h1>
 
-  <p class="sm-text is-danger" *ngIf="username.errors && username.errors['unavailable']">
-    <strong>{{ username.value }}</strong> is already taken
-  </p>
-
-  <p class="sm-text is-danger" *ngIf="username.valid">
-    <strong>{{ username.value }}</strong> is available!
-  </p>
-
-  <p class="sm-text is-danger" *ngIf="username.pending">
-    Checking availability... of <strong>{{ username.value }}</strong>
-  </p>
-
   <form
     novalidate
     [formGroup]="usernameForm"
@@ -26,8 +14,22 @@
         formControlName="username"
         placeholder="Username"
         required>
+      <mat-error class="sm-text is-danger" *ngIf="formErrors.username">
+        {{ formErrors.username }}
+      </mat-error>
     </mat-form-field>
-    <p *ngIf="formErrors.username">{{ formErrors.username }}</p>
+
+    <div class="sm-text is-danger" *ngIf="username.errors && username.errors['unavailable']">
+      <strong>{{ username.value }}</strong> is already taken
+    </div>
+
+    <div class="sm-text is-danger" *ngIf="username.valid">
+      <strong>{{ username.value }}</strong> is available!
+    </div>
+
+    <div class="sm-text is-danger" *ngIf="username.pending">
+      Checking availability... of <strong>{{ username.value }}</strong>
+    </div>
 
     <button
       mat-raised-button
@@ -40,9 +42,3 @@
 
   </form>
 </div>
-
-<mat-progress-spinner
-  *ngIf="showLoading"
-  color="primary"
-  mode="indeterminate">
-</mat-progress-spinner>
