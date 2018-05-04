@@ -15,15 +15,13 @@ type FormErrors = {[user in UserFields]: string};
 })
 export class LoginComponent implements OnInit {
 
-  showLoading: Boolean = false;
-  forgotPassword: Boolean = false;
   createUsername: Boolean = false;
   userForm: FormGroup;
   formErrors: FormErrors = {
     'email': '',
     'password': ''
   };
-  submitMessage = {
+  logInMessage = {
     'success': '',
     'error': ''
   };
@@ -69,9 +67,9 @@ export class LoginComponent implements OnInit {
     if (!this.userForm) {
       return;
     }
-    for (const field in this.submitMessage) {
-      if (this.submitMessage[field]) {
-        this.submitMessage[field] = '';
+    for (const field in this.logInMessage) {
+      if (this.logInMessage[field]) {
+        this.logInMessage[field] = '';
       }
     }
     const form = this.userForm;
@@ -94,14 +92,12 @@ export class LoginComponent implements OnInit {
   }
 
   logIn() {
-    this.showLoading = !this.showLoading;
     this._authService.emailLogIn(
       this.userForm.value['email'],
       this.userForm.value['password']
     )
     .then(() => {
-      this.showLoading = !this.showLoading;
-      this.submitMessage.success = 'Logged in successfully!';
+      this.logInMessage.success = 'Logged in successfully!';
       this._authService.user
       .pipe(take(1))
       .subscribe(user => {
@@ -113,13 +109,8 @@ export class LoginComponent implements OnInit {
       });
     })
     .catch(() => {
-      this.showLoading = !this.showLoading;
-      this.submitMessage.error = 'Sorry..incorrect email address or password';
+      this.logInMessage.error = 'Sorry..incorrect email address or password';
     });
-  }
-
-  forgotPasswordLink() {
-    this.forgotPassword = !this.forgotPassword;
   }
 
   usernameProvider(state) {
@@ -127,7 +118,7 @@ export class LoginComponent implements OnInit {
   }
 
   messageProvider(message) {
-    this.submitMessage.success = message;
+    this.logInMessage.success = message;
   }
 
 }
