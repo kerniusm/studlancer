@@ -1,14 +1,14 @@
-<div class="form" *ngIf="!createUsername">
+<div class="form" *ngIf="!createUsername && !forgotPassword">
   <h1>Log in</h1>
+
+  <p *ngIf="submitMessage.success">{{ submitMessage.success }}</p>
+  <p *ngIf="submitMessage.error">{{ submitMessage.error }}</p>
 
   <form
     novalidate
     [formGroup]="userForm"
     (ngSubmit)="logIn()"
     class="form">
-
-    <p *ngIf="logInMessage.success">{{ logInMessage.success }}</p>
-    <p *ngIf="logInMessage.error">{{ logInMessage.error }}</p>
 
     <mat-form-field class="full-width">
       <input
@@ -38,15 +38,16 @@
       [disabled]="!userForm.valid">
       Log in
     </button>
-
   </form>
 
   <p>Or</p>
 
   <app-google-login
-    (createUsername)='usernameProvider($event)'
-    (logInMessage)='messageProvider($event)'>
+    (createUsername)="usernameProvider($event)"
+    (submitMessage)="messageProvider($event)">
   </app-google-login>
+
+  <button (click)="forgotPasswordLink()">Forgot password?</button>
 
   <div>
     <p>Not a member yet?</p>
@@ -57,7 +58,17 @@
       Sign up
     </a>
   </div>
-
 </div>
 
+<app-forgot-password
+  *ngIf="forgotPassword"
+  (previousStep)="forgotPasswordLink()">
+</app-forgot-password>
+
 <app-username *ngIf="createUsername"></app-username>
+
+<mat-progress-spinner
+  *ngIf="showLoading"
+  color="primary"
+  mode="indeterminate">
+</mat-progress-spinner>
