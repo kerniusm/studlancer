@@ -16,7 +16,7 @@ type FormErrors = {[user in UserFields]: string};
 export class UsernameComponent implements OnInit {
 
   userId: String;
-
+  showLoading: Boolean = false;
   usernameForm: FormGroup;
   formErrors: FormErrors = {
     'username': ''
@@ -66,15 +66,17 @@ export class UsernameComponent implements OnInit {
       return;
     }
     const form = this.usernameForm;
-    if (Object.prototype.hasOwnProperty.call(this.formErrors, this.formErrors['username'])) {
-      this.formErrors['username'] = '';
-      const control = form.get('username');
-      if (control && control.dirty && !control.valid) {
-        const messages = this.validationMessage['username'];
-        if (control.errors) {
-          for (const key in control.errors) {
-            if (Object.prototype.hasOwnProperty.call(control.errors, key)) {
-              this.formErrors['username'] = `${(messages as {[key: string]: string})[key]}`;
+    for (const field in this.formErrors) {
+      if (Object.prototype.hasOwnProperty.call(this.formErrors, field)) {
+        this.formErrors[field] = '';
+        const control = form.get(field);
+        if (control && control.dirty && !control.valid) {
+          const messages = this.validationMessage[field];
+          if (control.errors) {
+            for (const key in control.errors) {
+              if (Object.prototype.hasOwnProperty.call(control.errors, key)) {
+                this.formErrors[field] = `${(messages as {[key: string]: string})[key]}`;
+              }
             }
           }
         }
@@ -83,12 +85,13 @@ export class UsernameComponent implements OnInit {
   }
 
   createUsername() {
+    this.showLoading = !this.showLoading;
     this._authService.updateUsername(
       this.usernameForm.value['username'].toLowerCase(),
       this.userId
     ).then(
       () => {
-        // this.signUpMessage.success = 'You have successfully registered and logged in!';
+        this.showLoading = !this.showLoading;
         return this.router.navigate(['/landing']);
     });
   }
