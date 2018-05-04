@@ -12,13 +12,14 @@ type FormErrors = {[user in UserFields]: string};
 })
 export class RegisterComponent implements OnInit {
 
+  showLoading: Boolean = false;
   createUsername: Boolean = false;
   userForm: FormGroup;
   formErrors: FormErrors = {
     'email': '',
     'password': ''
   };
-  signUpMessage = {
+  submitMessage = {
     'success': '',
     'error': ''
   };
@@ -67,9 +68,9 @@ export class RegisterComponent implements OnInit {
     if (!this.userForm) {
       return;
     }
-    for (const field in this.signUpMessage) {
-      if (this.signUpMessage[field]) {
-        this.signUpMessage[field] = '';
+    for (const field in this.submitMessage) {
+      if (this.submitMessage[field]) {
+        this.submitMessage[field] = '';
       }
     }
     const form = this.userForm;
@@ -92,16 +93,19 @@ export class RegisterComponent implements OnInit {
   }
 
   signUp() {
+    this.showLoading = !this.showLoading;
     this._authService.emailSignUp(
       this.userForm.value['email'],
       this.userForm.value['password']
     )
     .then(() => {
-      this.signUpMessage.success = 'You have been successfully registered!';
+      this.showLoading = !this.showLoading;
+      this.submitMessage.success = 'You have been successfully registered!';
       setTimeout(() => this.createUsername = true, 1500);
     })
     .catch(() => {
-      this.signUpMessage.error = `Sorry.. ${this.userForm.value['email']} is already in use by another account`;
+      this.showLoading = !this.showLoading;
+      this.submitMessage.error = `Sorry.. ${this.userForm.value['email']} is already in use by another account`;
     });
   }
 
@@ -110,7 +114,7 @@ export class RegisterComponent implements OnInit {
   }
 
   messageProvider(message) {
-    this.signUpMessage.success = message;
+    this.submitMessage.success = message;
   }
 
 }
