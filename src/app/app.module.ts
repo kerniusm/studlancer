@@ -19,6 +19,8 @@ import { AuthGuard } from './core/auth.guard';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // my components
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
@@ -33,6 +35,7 @@ import { ProjectDetailsComponent } from './projects/project-details/project-deta
 import { MessagesComponent } from './messages/messages.component';
 import { UsernameComponent } from './auth/username/username.component';
 import { GoogleLoginComponent } from './auth/google-login/google-login.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,8 @@ import { GoogleLoginComponent } from './auth/google-login/google-login.component
     ProjectDetailsComponent,
     MessagesComponent,
     UsernameComponent,
-    GoogleLoginComponent
+    GoogleLoginComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +65,9 @@ import { GoogleLoginComponent } from './auth/google-login/google-login.component
     BrowserAnimationsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     AuthService,
