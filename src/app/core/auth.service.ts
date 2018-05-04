@@ -56,6 +56,10 @@ export class AuthService {
     return userRef.set(userData, { merge: true });
   }
 
+  resetPassword(email) {
+    return this.afAuth.auth.sendPasswordResetEmail(email);
+  }
+
   private oAuthLogIn(provider) {
     return this.afAuth.auth.signInWithPopup(provider);
   }

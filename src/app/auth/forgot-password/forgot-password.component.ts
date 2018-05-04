@@ -1,27 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../core/auth.service';
 
-import { take } from 'rxjs/operators';
-
-type UserFields = 'email' | 'password';
+type UserFields = 'email';
 type FormErrors = {[user in UserFields]: string};
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class ForgotPasswordComponent implements OnInit {
+
+  @Output() previousStep = new EventEmitter();
 
   showLoading: Boolean = false;
-  forgotPassword: Boolean = false;
-  createUsername: Boolean = false;
-  userForm: FormGroup;
+  emailForm: FormGroup;
   formErrors: FormErrors = {
-    'email': '',
-    'password': ''
+    'email': ''
   };
   submitMessage = {
     'success': '',
@@ -29,12 +26,9 @@ export class LoginComponent implements OnInit {
   };
   validationMessage = {
     'email': {
-      'required': 'Oops! Please enter your email address',
+      'required': 'Oops! Please enter an email address',
       'email': `That doesn't look like a valid email address`
     },
-    'password': {
-      'required': 'Forgot to enter a password!',
-    }
   };
 
   constructor(
@@ -48,25 +42,22 @@ export class LoginComponent implements OnInit {
   }
 
   buildForm() {
-    this.userForm = this.formBuilder.group(
+    this.emailForm = this.formBuilder.group(
       {
         'email': ['', [
           Validators.required,
           Validators.email
         ]],
-        'password': ['', [
-          Validators.required,
-        ]]
       }
     );
-    this.userForm.valueChanges.subscribe(
+    this.emailForm.valueChanges.subscribe(
       (data) => this.onValueChanged(data)
     );
     this.onValueChanged();
   }
 
   onValueChanged(data?: any) {
-    if (!this.userForm) {
+    if (!this.emailForm) {
       return;
     }
     for (const field in this.submitMessage) {
@@ -74,7 +65,7 @@ export class LoginComponent implements OnInit {
         this.submitMessage[field] = '';
       }
     }
-    const form = this.userForm;
+    const form = this.emailForm;
     for (const field in this.formErrors) {
       if (Object.prototype.hasOwnProperty.call(this.formErrors, field)) {
         this.formErrors[field] = '';
@@ -93,41 +84,20 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  logIn() {
+  resetPassword() {
     this.showLoading = !this.showLoading;
-    this._authService.emailLogIn(
-      this.userForm.value['email'],
-      this.userForm.value['password']
-    )
+    const email = this.emailForm.value['email'];
+    this._authService.resetPassword(email)
     .then(() => {
-      this.showLoading = !this.showLoading;
-      this.submitMessage.success = 'Logged in successfully!';
-      this._authService.user
-      .pipe(take(1))
-      .subscribe(user => {
-        if (user['username']) {
-          return this.router.navigate(['/landing']);
-        } else {
-          this.createUsername = true;
-        }
-      });
-    })
+        this.showLoading = !this.showLoading;
+        this.submitMessage.success = `The link with a password reset was sent to ${email}!`;
+        setTimeout(() => this.previousStep.emit(), 5000);
+      }
+    )
     .catch(() => {
       this.showLoading = !this.showLoading;
-      this.submitMessage.error = 'Sorry..incorrect email address or password';
+      this.submitMessage.error = 'The email you entered seems to be unregistered';
     });
-  }
-
-  forgotPasswordLink() {
-    this.forgotPassword = !this.forgotPassword;
-  }
-
-  usernameProvider(state) {
-    this.createUsername = state;
-  }
-
-  messageProvider(message) {
-    this.submitMessage.success = message;
   }
 
 }
