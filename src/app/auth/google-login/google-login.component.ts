@@ -11,7 +11,7 @@ import { take } from 'rxjs/operators';
 export class GoogleLoginComponent implements OnInit {
 
   @Output() createUsername = new EventEmitter();
-  @Output() submitMessage = new EventEmitter();
+  @Output() logInMessage = new EventEmitter();
   noUsername: Boolean = true;
   message: String = 'Logged in successfully!';
 
@@ -26,7 +26,7 @@ export class GoogleLoginComponent implements OnInit {
   googleLogIn() {
     this._authService.googleLogIn()
     .then((credential) => {
-      this.submitMessage.emit(this.message);
+      this.logInMessage.emit(this.message);
       this._authService.user
       .pipe(take(1))
       .subscribe(user => {
