@@ -14,20 +14,27 @@ export class MessagesComponent implements OnInit {
   inboxMessages: any[];
   sentMessages: any[];
 
+
+
   constructor(private _messageService: MessagesService) {
   }
 
   ngOnInit() {
-    this.getSentMessages();
-  }
-
-
-  getSentMessages() {
-    this._messageService.getSentMessages().subscribe(el => console.log(el))
   }
 
   getInbox() {
-    this._messageService.getInbox().subscribe(el => console.log(el))
+  	// console.log(this._messageService.getInbox());
+  	this._messageService.getInbox().subscribe(el => console.log(el));
+  }
+
+  getSentMessages() {
+  	console.log(this._messageService.getSentMessages());
+  	this._messageService.getSentMessages();
+  }
+
+  getUserId() {
+  	console.log(this._messageService.getUser());
+  	this._messageService.getUser();
   }
 
   showInbox() {
