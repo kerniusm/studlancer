@@ -10,19 +10,17 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { FlexLayoutModule } from '@angular/flex-layout';
-
 // my services
 import { AuthService } from './core/auth.service';
 import { UserService } from './_services/user.service';
 // my guards
 import { AuthGuard } from './core/auth.guard';
 // angular material
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 // my components
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
@@ -32,12 +30,12 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ProjectFormComponent } from './projects/project-form/project-form.component';
+import { ProfileComponent } from './profile/profile.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { MessagesComponent } from './messages/messages.component';
-import { StudentComponent } from './profile/student/student.component';
-import { CompanyComponent } from './profile/company/company.component';
 import { UsernameComponent } from './auth/username/username.component';
 import { GoogleLoginComponent } from './auth/google-login/google-login.component';
+import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -49,12 +47,12 @@ import { GoogleLoginComponent } from './auth/google-login/google-login.component
     RegisterComponent,
     ProjectsComponent,
     ProjectFormComponent,
+    ProfileComponent,
     ProjectDetailsComponent,
     MessagesComponent,
-    StudentComponent,
-    CompanyComponent,
     UsernameComponent,
-    GoogleLoginComponent
+    GoogleLoginComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -62,15 +60,14 @@ import { GoogleLoginComponent } from './auth/google-login/google-login.component
     AngularFireModule.initializeApp(environment.firebase, 'angularfs'),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatTabsModule,
-    MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     AuthService,
