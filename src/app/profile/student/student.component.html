@@ -1,14 +1,16 @@
 <main class="studentContainer" fxLayout="row">
   <section class="leftColumn" fxLayout="column">
-    <img class="studentImage" src="{{user?.photoURL}}" alt="Profile picture of a student">
-    <h4 class="ratingTitle">Rating</h4>
-    <div class="ratingBlock" fxLayout="row" fxLayoutAlign="center">
-      <i class="far fa-star"></i>
-      <i class="far fa-star"></i>
-      <i class="far fa-star"></i>
-      <i class="far fa-star"></i>
-      <i class="far fa-star"></i>
-    </div>
+    <section class="centerBlock" fxLayout="column" fxLayoutAlign="center center">
+      <img class="studentImage" src="{{user?.photoURL}}" alt="Profile picture of a student">
+      <h4 class="ratingTitle">Rating</h4>
+      <div class="ratingBlock" fxLayout="row" fxLayoutAlign="center">
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+        <i class="far fa-star"></i>
+      </div>
+    </section>
     <h4>Skills</h4>
     <hr>
     <p *ngFor="let skill of user?.skills">
@@ -16,18 +18,23 @@
     </p>
   </section>
   <section class="rightColumn" fxLayout="column">
-    <section class="user?Info" fxLayout="column">
-      <div>
-        <h2>{{user?.displayName}}</h2>
-        <i class="fas fa-user?"></i>
+    <section class="userInfo" fxLayout="column">
+      <div *ngIf="!editable">
+        <h2 class="displayName" (click)="toggleName()">{{user?.displayName}}</h2>
+        <i class="fas fa-user"></i>
       </div>
-      <p>User since: {{user?.created_at}}</p>
+      <div *ngIf="editable" class="displayNameChange">
+        <input matInput [(ngModel)]="user.displayName" type="text" class="displayNameInput">
+        <button mat-button class="doneButton" (click)="saveName()"><mat-icon>done</mat-icon></button>
+        <!-- <mat-icon class="doneIcon" (click)="saveName()">done</mat-icon> -->
+      </div>
+      <p class="userSince">User since: {{user?.created_at}}</p>
       <a href="*"><i class="fas fa-comments"></i>Let's chat</a>
       <div contenteditable="true" class="aboutMe" [textContent]="user?.description" (input)="user.description=$event.target.textContent">
       </div>
       <p>{{test}}</p>
     </section>
-    <mat-tab-group>
+    <!-- <mat-tab-group>
       <mat-tab label="Contact">
         <section class="contactLinks" fxLayout="column">
           <a href="{{user?.links['github']}}">Github</a>
@@ -36,47 +43,66 @@
           <p>Email: {{user?.email}}</p>
           <a *ngIf="user?.links['personalWeb']" href="{{user?.links['personalWeb']}}">{{user?.links['personalWeb']}}</a>
         </section>
-      </mat-tab>
-      <mat-tab label="Works completed">
-        <section class="worksRow" fxLayout="row">
-          <mat-card>
-            <img src="http://placehold.it/300x300" alt="Completed project cover">
-            <mat-card-content>
-              <h3>Project Title</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nibh ex, vestibulum nec pharetra fermentum, porta eu mi. Vivamus facilisis velit nec aliquet aliquam.
-              </p>
-            </mat-card-content>
-          </mat-card>
-          <mat-card>
-            <img src="http://placehold.it/300x300" alt="Completed project cover">
-            <mat-card-content>
-              <h3>Project Title</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nibh ex, vestibulum nec pharetra fermentum, porta eu mi. Vivamus facilisis velit nec aliquet aliquam.
-              </p>
-            </mat-card-content>
-          </mat-card>
-          <mat-card>
-            <img src="http://placehold.it/300x300" alt="Completed project cover">
-            <mat-card-content>
-              <h3>Project Title</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nibh ex, vestibulum nec pharetra fermentum, porta eu mi. Vivamus facilisis velit nec aliquet aliquam.
-              </p>
-            </mat-card-content>
-          </mat-card>
-          <mat-card>
-            <img src="http://placehold.it/300x300" alt="Completed project cover">
-            <mat-card-content>
-              <h3>Project Title</h3>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nibh ex, vestibulum nec pharetra fermentum, porta eu mi. Vivamus facilisis velit nec aliquet aliquam.
-              </p>
-            </mat-card-content>
-          </mat-card>
-        </section>
-      </mat-tab>
-    </mat-tab-group>
+      </mat-tab> -->
+    <!-- <mat-tab label="Works completed"> -->
+    <h5>Works done</h5>
+    <section class="worksContainer" fxLayout="row">
+      <mat-card class="workCard">
+        <img src="http://placehold.it/300x300" alt="Completed project cover">
+        <mat-card-content>
+          <h3>Project Title</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nibh ex, vestibulum nec pharetra fermentum, porta eu mi. Vivamus facilisis velit nec aliquet aliquam.
+          </p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="workCard">
+        <img src="http://placehold.it/300x300" alt="Completed project cover">
+        <mat-card-content>
+          <h3>Project Title</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nibh ex, vestibulum nec pharetra fermentum, porta eu mi. Vivamus facilisis velit nec aliquet aliquam.
+          </p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="workCard">
+        <img src="http://placehold.it/300x300" alt="Completed project cover">
+        <mat-card-content>
+          <h3>Project Title</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nibh ex, vestibulum nec pharetra fermentum, porta eu mi. Vivamus facilisis velit nec aliquet aliquam.
+          </p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="workCard">
+        <img src="http://placehold.it/300x300" alt="Completed project cover">
+        <mat-card-content>
+          <h3>Project Title</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nibh ex, vestibulum nec pharetra fermentum, porta eu mi. Vivamus facilisis velit nec aliquet aliquam.
+          </p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="workCard">
+        <img src="http://placehold.it/300x300" alt="Completed project cover">
+        <mat-card-content>
+          <h3>Project Title</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nibh ex, vestibulum nec pharetra fermentum, porta eu mi. Vivamus facilisis velit nec aliquet aliquam.
+          </p>
+        </mat-card-content>
+      </mat-card>
+      <mat-card class="workCard">
+        <img src="http://placehold.it/300x300" alt="Completed project cover">
+        <mat-card-content>
+          <h3>Project Title</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce nibh ex, vestibulum nec pharetra fermentum, porta eu mi. Vivamus facilisis velit nec aliquet aliquam.
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </section>
   </section>
+  <!-- </mat-tab>
+    </mat-tab-group> -->
 </main>

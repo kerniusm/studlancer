@@ -17,5 +17,8 @@ export class UserService {
   getUser(uid: string) {
     return this.afStore.doc<any>(`users/${uid}`);
   }
+  
+  updateName(uid:string, displayName){
+    return this.getUser(uid).update({displayName})
+  }
 }
-
