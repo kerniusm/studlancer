@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MessagesService } from '../../_services/messages.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Name } from '../../_validators/name.validator';
 import { UserService } from '../../_services/user.service';
 import { AuthService } from '../../core/auth.service';
+import { Observable } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, take } from 'rxjs/operators';
+import { AngularFirestore } from 'angularfire2/firestore';
 
-type UserFields = 'recipient';
+type UserFields = 'recipient' | 'subject' | 'message';
 type FormErrors = {[user in UserFields]: string};
 
 @Component({
@@ -14,21 +16,32 @@ type FormErrors = {[user in UserFields]: string};
   styleUrls: ['./new.component.scss']
 })
 export class NewComponent implements OnInit {
+	user: object;
+	invalid: boolean = false;
+	messageTo;
 
   messageForm: FormGroup;
   formErrors: FormErrors = {
-    'recipient': ''
+    'recipient': '',
+    'subject': '',
+    'message': '',
   };
   validationMessage = {
     'recipient': {
       'required': 'Please enter a recipient',
+    },
+    'subject': {
+    	'required': 'Please enter subject of the message',
+    },
+    'message': {
+    	'required': 'Please enter a message'
     }
   };
 
 	message: object = {
-		to: 'sEwsk0oOimN8OUOduhGWTNFdlL92',
+		to: '',
 		subject: '',
-		text: ''
+		message: ''
 	}
 
   constructor(
@@ -36,10 +49,28 @@ export class NewComponent implements OnInit {
     private formBuilder: FormBuilder,
     public _authService: AuthService,
     private _userService: UserService,
+    private _firestore: AngularFirestore
   ) { }
 
   ngOnInit() {
     this.buildForm();
+  }
+
+  validateRecipient(value) {
+			this._firestore
+  		.collection('users', el => el.where('username','==',value))
+  		.valueChanges()
+  		.subscribe(el => {
+  			if (Object.keys(el).length) {
+  				this.user = el[0];
+			  	// this.user['uid'];
+  				console.log(this.message['to'])
+  				this.invalid = false;
+  			} else {
+  				this.invalid = true;
+  				console.log('n ok')
+  			}
+  		})
   }
 
   buildForm() {
@@ -47,9 +78,13 @@ export class NewComponent implements OnInit {
       {
         'recipient': ['', [
           Validators.required,
-        ],
-          Name(this._authService.afStore)
-        ],
+        ]],
+        'subject': ['', [
+        	Validators.required,
+        ]],
+        'message': ['', [
+        	Validators.required
+        ]]
       }
     );
     this.messageForm.valueChanges.subscribe(
@@ -87,12 +122,14 @@ export class NewComponent implements OnInit {
   }
 
   sendMessage() {
+    console.log(this.user['uid']);
+    console.log(this.messageForm.value['subject']);
+    console.log(this.messageForm.value['message']);
   	this._messageService.sendMessage(
-  		this.message['to'],
-  		this.message['subject'],
-  		this.message['text']
+  		this.user['uid'],
+  		this.messageForm.value['subject'],
+  		this.messageForm.value['message']
   	);
-    console.log('Message sent')
   }
 
 }

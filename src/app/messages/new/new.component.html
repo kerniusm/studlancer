@@ -4,18 +4,46 @@
 	>
 	<mat-form-field>
 		<input 
+			#input
 			type="text" 
 			matInput 
 			placeholder="To" 
-			formControlName="recipient">
+			formControlName="recipient"
+			(change)="validateRecipient(input.value)"
+			>
+			<mat-hint *ngIf="invalid">No such user</mat-hint>
 	</mat-form-field>
-	<pre>{{recipient.value}}</pre>
+	<div class="search">
+		<ul>
+			<li *ngFor="let user of users">
+				{{user.username}}
+			</li>
+		</ul>
+	</div>
+	<!-- <pre>{{recipient.value}}</pre> -->
 	<mat-form-field>
-		<input type="text" matInput placeholder="Subject" name="subject">
+		<input 
+			type="text" 
+			matInput 
+			placeholder="Subject" 
+			name="subject" 
+			maxlength="20"
+			formControlName="subject"
+			>
 	</mat-form-field>
 	<mat-form-field>
-		<textarea matInput #textarea maxlength="256" placeholder="Enter message" name="message" rows="5"></textarea>
+		<textarea 
+			#textarea 
+			matInput 
+			maxlength="256" 
+			placeholder="Enter message" 
+			name="message" 
+			rows="5"
+			formControlName="message"
+></textarea>
 		<mat-hint align="end">{{textarea.value.length}} / 256</mat-hint>
 	</mat-form-field>
+	<pre>{{messageForm.value | json}}</pre>
+	<pre>{{user | json}}</pre>
 	<button mat-raised-button color="primary">Send</button>
 </form>

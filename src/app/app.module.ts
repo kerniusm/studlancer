@@ -65,7 +65,7 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
     InboxComponent,
     SentComponent,
     NewComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,

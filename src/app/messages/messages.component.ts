@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MessagesService } from '../_services/messages.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-messages',
@@ -7,20 +8,33 @@ import { MessagesService } from '../_services/messages.service';
   styleUrls: ['./messages.component.scss']
 })
 export class MessagesComponent implements OnInit {
-  inbox: boolean = true;
-  sent: boolean = false;
-  newMessage: boolean = false;
+	router: string;
 
   inboxMessages: any[];
   sentMessages: any[];
 
-
-
-  constructor(private _messageService: MessagesService) {
+  constructor(
+  	private _messageService: MessagesService,
+  	private _activeRoute: ActivatedRoute,
+  	private _router: Router
+  ) {
+  	this._activeRoute.params.subscribe(el => {
+  		if (!el.component) {
+  			this.router = 'new';
+  			this._router.navigate(['messages', 'new'])
+  		} else {
+  			this.router = el.component
+  		}
+  	})
   }
 
   ngOnInit() {
   }
+
+	goTo(value: string) {
+		this.router = value;
+		this._router.navigate(['messages', value])
+	}
 
   getInbox() {
   	// console.log(this._messageService.getInbox());
@@ -35,24 +49,6 @@ export class MessagesComponent implements OnInit {
   getUserId() {
   	console.log(this._messageService.getUser());
   	this._messageService.getUser();
-  }
-
-  showInbox() {
-    this.inbox = true;
-    this.sent = false; 
-    this.newMessage = false;
-  }
-
-  showSent() {
-    this.sent = true;
-    this.inbox = false;
-    this.newMessage = false;
-  }
-
-  showNew() {
-    this.newMessage = true;
-    this.inbox = false;
-    this.sent = false;
   }
 
 }

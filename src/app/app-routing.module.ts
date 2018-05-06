@@ -13,6 +13,7 @@ import { AuthGuard } from './core/auth.guard';
 const routes: Routes = [
   { path: '', component: LandingComponent, canActivate: [AuthGuard] },
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
+  { path: 'messages/:component', component: MessagesComponent, canActivate: [AuthGuard] },
   { path: 'landing', component: LandingComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'projects', component: ProjectsComponent },

@@ -13,3 +13,19 @@ form {
 		margin-top: 10px;
 	}
 }
+
+.search {
+	// border: 1px solid black;
+	ul {
+		list-style: none;
+		padding: 0;
+		li {
+			padding: 10px;
+			border: 1px solid black;
+		}
+	}
+
+* {
+	background-color: rgba(0, 0, 0, 0.1);
+}
+}
