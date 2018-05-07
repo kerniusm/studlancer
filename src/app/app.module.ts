@@ -21,6 +21,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
+import { MatTabsModule } from '@angular/material/tabs';
 // my components
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
@@ -36,6 +38,8 @@ import { MessagesComponent } from './messages/messages.component';
 import { UsernameComponent } from './auth/username/username.component';
 import { GoogleLoginComponent } from './auth/google-login/google-login.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
+import { CompanyComponent } from './profile/company/company.component';
+import { StudentComponent } from './profile/student/student.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +56,9 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
     MessagesComponent,
     UsernameComponent,
     GoogleLoginComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    CompanyComponent,
+    StudentComponent
   ],
   imports: [
     BrowserModule,
@@ -67,7 +73,9 @@ import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatTabsModule
   ],
   providers: [
     AuthService,

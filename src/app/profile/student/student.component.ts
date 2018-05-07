@@ -7,15 +7,17 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
   styleUrls: ['./student.component.scss']
 })
 export class StudentComponent implements OnInit {
-@Input() test:string = "";
+@Input() test: String = '';
 user: Object;
   constructor(private afs: AngularFirestore) { }
 
   ngOnInit() {
     this.afs.doc<any>(`users/h6RGO6MBQ5OVlP12lsyPchv68c63`).valueChanges()
     .subscribe(
-      user => {this.user = user
-        console.log(this.user)}
+      user => {
+        this.user = user;
+        console.log(this.user);
+      }
     );
 }
 
