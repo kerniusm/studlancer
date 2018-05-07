@@ -1,0 +1,15 @@
+form {
+	width: 50%;
+	margin: auto;
+	margin-top: 50px;
+	display: flex;
+	flex-flow: column wrap;
+	textarea {
+		resize: none;
+	}
+	button {
+		align-self: flex-end;
+		width: 50%;
+		margin-top: 10px;
+	}
+}

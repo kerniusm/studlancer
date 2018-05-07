@@ -1,3 +1,19 @@
-<p>
-  messages works!
-</p>
+<div class="container">
+	<mat-drawer-container class="container__drawer">
+		<mat-drawer mode="side" opened="true">
+			<mat-list role="list">
+			  <mat-list-item role="listitem" (click)="showInbox()"><button mat-button>Inbox</button></mat-list-item>
+			  
+			  <mat-list-item role="listitem" (click)="showSent()"><button mat-button>Sent Messages</button></mat-list-item>			  
+			  
+			  <mat-list-item role="listitem" (click)="showNew()"><button mat-raised-button color="primary">New Message</button></mat-list-item>			  
+			</mat-list>
+
+		</mat-drawer>
+		<mat-drawer-content class="container__content">
+			<app-inbox *ngIf="inbox"></app-inbox>
+			<app-sent *ngIf="sent"></app-sent>
+			<app-new *ngIf="newMessage"></app-new>
+		</mat-drawer-content>
+	</mat-drawer-container>
+</div>

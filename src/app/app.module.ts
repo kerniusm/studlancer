@@ -13,16 +13,23 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 // my services
 import { AuthService } from './core/auth.service';
 import { UserService } from './_services/user.service';
+import { MessagesService } from './_services/messages.service';
 // my guards
 import { AuthGuard } from './core/auth.guard';
 // angular material
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
+
 // my components
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
@@ -37,6 +44,9 @@ import { ProjectDetailsComponent } from './projects/project-details/project-deta
 import { MessagesComponent } from './messages/messages.component';
 import { UsernameComponent } from './auth/username/username.component';
 import { GoogleLoginComponent } from './auth/google-login/google-login.component';
+import { InboxComponent } from './messages/inbox/inbox.component';
+import { SentComponent } from './messages/sent/sent.component';
+import { NewComponent } from './messages/new/new.component';
 import { ForgotPasswordComponent } from './auth/forgot-password/forgot-password.component';
 import { CompanyComponent } from './profile/company/company.component';
 import { StudentComponent } from './profile/student/student.component';
@@ -58,7 +68,10 @@ import { StudentComponent } from './profile/student/student.component';
     GoogleLoginComponent,
     ForgotPasswordComponent,
     CompanyComponent,
-    StudentComponent
+    StudentComponent,
+    InboxComponent,
+    SentComponent,
+    NewComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +85,11 @@ import { StudentComponent } from './profile/student/student.component';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatSidenavModule,
+    MatListModule,
+    MatExpansionModule,
     MatIconModule,
     MatProgressSpinnerModule,
     MatCardModule,
@@ -80,7 +98,8 @@ import { StudentComponent } from './profile/student/student.component';
   providers: [
     AuthService,
     AuthGuard,
-    UserService
+    UserService,
+    MessagesService
   ],
   bootstrap: [AppComponent]
 })

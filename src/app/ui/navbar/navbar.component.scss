@@ -1,0 +1,15 @@
+.container {
+	padding-left: 10%;
+	padding-right: 10%;
+	.logo {
+		cursor: pointer;
+		margin-right: 50px;
+	}
+	.spacer {
+		flex: 1 1 auto;
+	}
+	button {
+		font-size: 16px;
+		height: 100%;
+	}
+}

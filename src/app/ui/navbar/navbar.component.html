@@ -1,3 +1,53 @@
-<p>
-  navbar works!
-</p>
+<mat-toolbar color="primary" class="container">
+	<button class="logo" mat-icon-button routerLink="">
+    <mat-icon>&#xE88A;</mat-icon>
+
+	</button>
+		
+	<button
+	routerLink="projects"
+	mat-button
+	>Projects</button>
+
+	<span class="spacer"></span>
+	
+	<button
+	*ngIf="!user"
+	mat-button
+	routerLink="login"
+	>Login</button>
+	
+	<button
+	*ngIf="!user"
+	mat-button
+	routerLink="signup"
+	>Sign up</button>
+
+	<button
+	*ngIf="user"
+	mat-button
+	[matMenuTriggerFor]="profileMenu"
+	>Profile</button>
+
+</mat-toolbar>
+
+<mat-menu
+	#profileMenu="matMenu"
+	overlapTrigger=false
+	>
+	<button 
+	routerLink="profile"
+	mat-menu-item
+	>My profile</button>
+
+	<button 
+	routerLink="messages"
+	mat-menu-item
+	>Messages</button>
+
+	<button 
+	mat-menu-item
+	(click)="logout()"
+	>Logout</button>
+
+</mat-menu>
