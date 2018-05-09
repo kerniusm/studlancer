@@ -2,29 +2,68 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { AuthService } from '../../core/auth.service';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { HttpClient, HttpParams, HttpRequest, HttpEvent } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class UploadService {
 
-  httpClient;
+  HttpClient;
 
   constructor(
-    public _authService: AuthService
+    public _authService: AuthService,
+    private afs: AngularFirestore
   ) { }
 
-  postFile(uploadFile: File): Observable<boolean> {
-    const storageRef = firebase.storage().ref();;
-    const formData: FormData = new FormData();
+  uploadPicture(upload, id){
+    const storageRef = firebase.storage().ref();
+    const imageName = new Date().getTime();
+    const uploadTask = storageRef.child(`clients/${imageName}`).put(upload);
 
-    formData.append('', uploadFile, uploadFile.name);
-    return this.httpClient.post(storageRef, formData, { headers: 'header' })
-      .map(() => { return true; }).catch((e) => this.handleError(e));
-    }
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot: firebase.storage.UploadTaskSnapshot) => {
+        upload.progress = (uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes)
+        * 100
+      },
+      (error) => {
+        console.log('error')
+      },
+      () => {
+        if(uploadTask.snapshot.downloadURL){
+          const newPicture = {
+            fileURL: uploadTask.snapshot.downloadURL,
+            title: imageName,
+          }
+          this.updatePicture(newPicture, id);
+          return;
+        }else{
+          console.log('file not loaded')
+        }
+      }
+    );
+  }
 
+  getOnePost(id){
+    return this.afs.doc<any>(`clients/${id}`);
+  }
 
-    handleError(e){
+  private updatePicture(upload, id){
+    return this.getOnePost(id).update(upload);
+  }
 
-    }
+  // postFile(uploadFile: File): Observable<boolean> {
+  //   const storageRef = firebase.storage().ref();;
+  //   const formData: FormData = new FormData();
+  //   let headers = new Headers();
+  //
+  //   formData.append('', uploadFile, uploadFile.name);
+  //   return this.HttpClient.post(storageRef, formData, { headers: headers })
+  //     .map(() => { return true; }).catch((e) => this.handleError(e));
+  //   }
+  //
+  //
+  //   handleError(e){
+  //
+  //   }
 
 }

@@ -6,12 +6,16 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClient, HttpParams, HttpRequest, HttpEvent } from '@angular/common/http';
+
 // npm package
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 // my services
 import { AuthService } from './core/auth.service';
+import { UploadService } from './_services/upload/upload.service'
 // my guards
 import { AuthGuard } from './core/auth.guard';
 // angular material
@@ -33,6 +37,7 @@ import { ProjectFormComponent } from './projects/project-form/project-form.compo
 import { ProfileComponent } from './profile/profile.component';
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { MessagesComponent } from './messages/messages.component';
+import { DropZoneDirective } from './drop-zone.directive';
 
 @NgModule({
   declarations: [
@@ -46,13 +51,15 @@ import { MessagesComponent } from './messages/messages.component';
     ProjectFormComponent,
     ProfileComponent,
     ProjectDetailsComponent,
-    MessagesComponent
+    MessagesComponent,
+    DropZoneDirective
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase, 'angularfs'),
     AngularFirestoreModule,
+    AngularFireStorageModule,
     AngularFireAuthModule,
     MatFormFieldModule,
     MatInputModule,
@@ -66,7 +73,8 @@ import { MessagesComponent } from './messages/messages.component';
   ],
   providers: [
     AuthService,
-    AuthGuard
+    AuthGuard,
+    UploadService
   ],
   bootstrap: [AppComponent]
 })

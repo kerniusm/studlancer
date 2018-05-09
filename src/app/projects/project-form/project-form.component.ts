@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from '../../_services/upload/upload.service';
 
+import{ AuthService } from '../../core/auth.service';
+
+import { Router, ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-project-form',
   templateUrl: './project-form.component.html',
@@ -16,22 +20,25 @@ export class ProjectFormComponent implements OnInit {
   newFile: File = null;
 
   constructor(
-    private _uploadService: UploadService
+    private _uploadService: UploadService,
+    private _authService: AuthService,
+    private router: Router,
+    private aR: ActivatedRoute
   ) { }
 
   ngOnInit() {
   }
 
-  detectFile(files: FileList){
-    this.newFile = files.item(0);
-  }
-
-  uploadFile(){
-    this._uploadService.postFile(this.detectFile).subscribe(data => {
-      // do something, if upload success
-      }, error => {
-        console.log(error);
-      });
-  }
+  // detectFile(files: FileList){
+  //   this.newFile = files.item(0);
+  // }
+  //
+  // uploadFile(){
+  //   this._uploadService.postFile(this.newFile).subscribe(data => {
+  //     return;
+  //     }, error => {
+  //       console.log(error);
+  //     });
+  // }
 
 }

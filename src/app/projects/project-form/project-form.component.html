@@ -11,7 +11,7 @@
     </mat-form-field>
     <div class="uploadFile" (click)="fileUpload.click()">
       <button type="button" mat-button>Įkelkite failus</button>
-      <input type="file" mat-button (change)="detectFile($event.target.files)" #fileUpload class="hidden">
+      <input type="file" mat-button (change)="detectFile($event.target.files)" accept=".pdf, .doc, .jpg .png, .psd, .txt" #fileUpload class="hidden">
     </div>
     <mat-form-field>
       <mat-select [(value)]="selected" placeholder="Projekto trukmė" required>
