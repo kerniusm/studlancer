@@ -22,16 +22,16 @@
     </mat-form-field>
     <mat-form-field>
       <mat-select [(value)]="payment" placeholder="Kaip bus mokoma už projektą?" required>
-        <mat-option value="Valandinis atlygis">Valandinis atlygis</mat-option>
-        <mat-option value="Fiksuota kaina">Fiksuota kaina</mat-option>
+        <mat-option value="Valandinis atlygis" rate>Valandinis atlygis</mat-option>
+        <mat-option value="Fiksuota kaina" rate>Fiksuota kaina</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field class="hourly hidden">
+    <mat-form-field [hidden]="rate == false" class="hourly">
       <mat-select [(value)]="budget">
         <mat-option>Valandinis</mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field class="fixed hidden">
+    <mat-form-field [hidden]="rate == false" class="fixed">
       <mat-select [(value)]="budget">
         <mat-option>Fiksuotas</mat-option>
       </mat-select>
